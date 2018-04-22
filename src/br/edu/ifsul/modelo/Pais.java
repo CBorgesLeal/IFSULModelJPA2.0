@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -20,9 +23,15 @@ public class Pais {
     @Column(name = "id")
     private Integer id;
     
+    @Length(min = 3, max = 50, message = "O nome não pode ter mais de {max} caracteres")
+    @NotBlank(message = "O nome deve ser informado")
+    @NotNull(message = "O nome não pode ser nulo")
     @Column(name = "nome", nullable = false, length = 50)
     private String nome;
     
+    @Length(min = 3, max = 3, message = "O iso não pode ter mais de {max} caracteres")
+    @NotBlank(message = "O iso deve ser informado")
+    @NotNull(message = "O iso não pode ser nulo")
     @Column(name = "iso", nullable = false, length = 3)
     private String iso;
 

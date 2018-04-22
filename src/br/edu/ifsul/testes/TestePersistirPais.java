@@ -20,8 +20,8 @@ public class TestePersistirPais {
         
         // OBJETO
         Pais pais = new Pais();
-        pais.setNome("Brasil");
-        pais.setIso("BRA");
+        pais.setNome("Argentina");
+        pais.setIso("ARG");
 
         // TRANSAÇÃO
         em.getTransaction().begin();
