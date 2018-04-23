@@ -1,10 +1,9 @@
 package br.edu.ifsul.testes;
 
+import br.edu.ifsul.jpa.EntityManagerUtil;
 import br.edu.ifsul.modelo.Pais;
 import java.util.Set;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -17,15 +16,11 @@ public class TesteValidarPais {
 
     public static void main(String[] args) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("IFSULPU");
+        EntityManager em = EntityManagerUtil.getEntityManager();
 
-        EntityManager em = emf.createEntityManager();
-
-        // OBJETO
         Pais pais = new Pais();
-        // IGNORA OS DADOS A SEREM PERSISTIDOS
-        pais.setNome("Teste");
-        pais.setIso("ARGE"); 
+        pais.setNome("Chile");
+        pais.setIso("CHI"); 
 
         // TRANSAÇÃO
         em.getTransaction().begin();
@@ -46,7 +41,6 @@ public class TesteValidarPais {
         em.getTransaction().commit();
 
         em.close();
-        emf.close();
 
     }
 
