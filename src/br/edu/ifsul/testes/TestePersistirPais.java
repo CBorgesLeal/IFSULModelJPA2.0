@@ -1,5 +1,6 @@
 package br.edu.ifsul.testes;
 
+import br.edu.ifsul.jpa.EntityManagerUtil;
 import br.edu.ifsul.modelo.Pais;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,14 +15,16 @@ public class TestePersistirPais {
     
     public static void main(String[] args) {
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("IFSULPU");
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("IFSULPU");
+//        
+//        EntityManager em = emf.createEntityManager();
         
-        EntityManager em = emf.createEntityManager();
-        
+        EntityManager em = EntityManagerUtil.getEntityManager();
+
         // OBJETO
         Pais pais = new Pais();
-        pais.setNome("Argentina");
-        pais.setIso("ARG");
+        pais.setNome("Uruguai");
+        pais.setIso("URU");
 
         // TRANSAÇÃO
         em.getTransaction().begin();
@@ -29,7 +32,7 @@ public class TestePersistirPais {
         em.getTransaction().commit();
         
         em.close();
-        emf.close();
+        //emf.close();
         
     }
     

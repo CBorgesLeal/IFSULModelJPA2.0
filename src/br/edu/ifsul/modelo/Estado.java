@@ -1,22 +1,28 @@
 package br.edu.ifsul.modelo;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.ForeignKey;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
  * @author Claudinei
- * 19/04/2018 20:28
+ * 23/04/2018 19:18
  */
 @Entity
-public class Pais {
+@Table(name = "estado")
+public class Estado implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,16 +31,22 @@ public class Pais {
     @Length(min = 3, max = 50, message = "O nome não pode ter mais de {max} caracteres")
     @NotBlank(message = "O nome deve ser informado")
     @NotNull(message = "O nome não pode ser nulo")
-    @Column(name = "nome", nullable = false, length = 50)
+    @Column(name = "nome", length = 50, nullable = false)
     private String nome;
     
-    @Length(min = 3, max = 3, message = "O iso não pode ter mais de {max} caracteres")
-    @NotBlank(message = "O iso deve ser informado")
-    @NotNull(message = "O iso não pode ser nulo")
-    @Column(name = "iso", nullable = false, length = 3)
-    private String iso;
+    @Length(min = 2, max = 2, message = "A UF não pode ter mais de {max} caracteres")
+    @NotBlank(message = "A UF deve ser informada")
+    @NotNull(message = "A UF não pode ser nula")
+    @Column(name = "uf", length = 2, nullable = false)
+    private String uf;
+    
+    @NotNull(message = "O país deve ser informado")
+    @ManyToOne
+    @JoinColumn(name = "pais", referencedColumnName = "id", nullable = false)
+    @ForeignKey(name = "fk_pais")
+    private Pais pais;
 
-    public Pais() {
+    public Estado() {
     }
 
     public Integer getId() {
@@ -53,18 +65,26 @@ public class Pais {
         this.nome = nome;
     }
 
-    public String getIso() {
-        return iso;
+    public String getUf() {
+        return uf;
     }
 
-    public void setIso(String iso) {
-        this.iso = iso;
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 19 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -79,12 +99,12 @@ public class Pais {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Pais other = (Pais) obj;
+        final Estado other = (Estado) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+      
     
-        
 }

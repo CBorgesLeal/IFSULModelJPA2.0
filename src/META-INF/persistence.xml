@@ -8,6 +8,11 @@
   <persistence-unit name="IFSULPU" transaction-type="RESOURCE_LOCAL">
    
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    
+    <class>br.edu.ifsul.modelo.Pais</class>
+    <class>br.edu.ifsul.modelo.Estado</class>
+    <class>br.edu.ifsul.modelo.Pessoa</class>
+    <class>br.edu.ifsul.modelo.PessoaFisica</class>
 
     <properties>
        <!-- Driver JDBC para conexão com o MySQL -->

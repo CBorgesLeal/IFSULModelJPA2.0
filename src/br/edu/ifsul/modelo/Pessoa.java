@@ -1,11 +1,15 @@
 package br.edu.ifsul.modelo;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -13,10 +17,12 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  *
  * @author Claudinei
- * 19/04/2018 20:28
+ * 23/04/2018 21:26
  */
 @Entity
-public class Pais {
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "pessoa")
+public class Pessoa implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,16 +31,22 @@ public class Pais {
     @Length(min = 3, max = 50, message = "O nome não pode ter mais de {max} caracteres")
     @NotBlank(message = "O nome deve ser informado")
     @NotNull(message = "O nome não pode ser nulo")
-    @Column(name = "nome", nullable = false, length = 50)
+    @Column(name = "nome", length = 50, nullable = false)
     private String nome;
     
-    @Length(min = 3, max = 3, message = "O iso não pode ter mais de {max} caracteres")
-    @NotBlank(message = "O iso deve ser informado")
-    @NotNull(message = "O iso não pode ser nulo")
-    @Column(name = "iso", nullable = false, length = 3)
-    private String iso;
+    @Length(min = 14, max = 14, message = "O telefone não pode ter mais de {max} caracteres")
+    @NotBlank(message = "O telefone deve ser informado")
+    @NotNull(message = "O telefone não pode ser nulo")
+    @Column(name = "nome", length = 14, nullable = false)
+    private String telefone;
+    
+    @Length(min = 5, max = 50, message = "O email não pode ter mais de {max} caracteres")
+    @NotBlank(message = "O email deve ser informado")
+    @NotNull(message = "O email não pode ser nulo")
+    @Column(name = "nome", length = 50, nullable = false)
+    private String email;
 
-    public Pais() {
+    public Pessoa() {
     }
 
     public Integer getId() {
@@ -53,17 +65,25 @@ public class Pais {
         this.nome = nome;
     }
 
-    public String getIso() {
-        return iso;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setIso(String iso) {
-        this.iso = iso;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         hash = 89 * hash + Objects.hashCode(this.id);
         return hash;
     }
@@ -79,12 +99,11 @@ public class Pais {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Pais other = (Pais) obj;
+        final Pessoa other = (Pessoa) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
-        
+            
 }
