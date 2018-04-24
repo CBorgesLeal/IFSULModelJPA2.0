@@ -19,8 +19,8 @@ public class TesteValidarPais {
         EntityManager em = EntityManagerUtil.getEntityManager();
 
         Pais pais = new Pais();
-        pais.setNome("Chile");
-        pais.setIso("CHI"); 
+        pais.setNome("");
+        pais.setIso(""); 
 
         // TRANSAÇÃO
         em.getTransaction().begin();

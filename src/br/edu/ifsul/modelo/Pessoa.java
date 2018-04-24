@@ -17,11 +17,10 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  *
  * @author Claudinei
- * 23/04/2018 21:26
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa implements Serializable {
     
     @Id
@@ -34,16 +33,16 @@ public class Pessoa implements Serializable {
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
     
-    @Length(min = 14, max = 14, message = "O telefone não pode ter mais de {max} caracteres")
+    @Length(min = 3, max = 14, message = "O telefone não pode ter mais de {max} caracteres")
     @NotBlank(message = "O telefone deve ser informado")
     @NotNull(message = "O telefone não pode ser nulo")
-    @Column(name = "nome", length = 14, nullable = false)
+    @Column(name = "telefone", length = 14, nullable = false)
     private String telefone;
     
-    @Length(min = 5, max = 50, message = "O email não pode ter mais de {max} caracteres")
+    @Length(min = 3, max = 50, message = "O email não pode ter mais de {max} caracteres")
     @NotBlank(message = "O email deve ser informado")
     @NotNull(message = "O email não pode ser nulo")
-    @Column(name = "nome", length = 50, nullable = false)
+    @Column(name = "email", length = 50, nullable = false)
     private String email;
 
     public Pessoa() {
@@ -84,7 +83,7 @@ public class Pessoa implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + Objects.hashCode(this.id);
         return hash;
     }
 

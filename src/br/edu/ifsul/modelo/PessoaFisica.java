@@ -2,6 +2,7 @@ package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -19,32 +20,32 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name = "pessoa_fisica")
 public class PessoaFisica extends Pessoa implements Serializable {
     
-    @Length(min = 3, max = 20, message = "O RG não pode ter mais de {max} caracteres")
-    @NotBlank(message = "O RG deve ser informado")
-    @NotNull(message = "O RG não pode ser nulo")
+    @Length(min = 3, max = 20, message = "O nome não pode ter mais de {max} caracteres")
+    @NotBlank(message = "O nome deve ser informado")
+    @NotNull(message = "O nome não pode ser nulo")
     @Column(name = "rg", length = 20, nullable = false)
     private String rg;
     
-    @Length(min = 3, max = 14, message = "O CPF não pode ter mais de {max} caracteres")
-    @NotBlank(message = "O CPF deve ser informado")
-    @NotNull(message = "O CPF não pode ser nulo")
+    @Length(min = 3, max = 14, message = "O nome não pode ter mais de {max} caracteres")
+    @NotBlank(message = "O nome deve ser informado")
+    @NotNull(message = "O nome não pode ser nulo")
     @Column(name = "cpf", length = 14, nullable = false)
     private String cpf;
     
-    @NotNull(message = "O nascimento não pode ser nulo")
+    @NotNull(message = "O nome não pode ser nulo")
+    @Column(name = "nascimento", length = 50, nullable = false)
     @Temporal(TemporalType.DATE)
-    @Column(name = "nascimento", nullable = false)
     private Calendar nascimento;
     
-    @Length(min = 3, max = 50, message = "O usuário não pode ter mais de {max} caracteres")
-    @NotBlank(message = "O usuário deve ser informado")
-    @NotNull(message = "O usuário não pode ser nulo")
-    @Column(name = "usuario", length = 50, nullable = false, unique = true)
+    @Length(min = 3, max = 50, message = "O nome não pode ter mais de {max} caracteres")
+    @NotBlank(message = "O nome deve ser informado")
+    @NotNull(message = "O nome não pode ser nulo")
+    @Column(name = "nomeusuario", length = 50, nullable = false, unique = true)
     private String nomeUsuario;
     
-    @Length(min = 3, max = 50, message = "A senha não pode ter mais de {max} caracteres")
-    @NotBlank(message = "A senha deve ser informada")
-    @NotNull(message = "A senha não pode ser nula")
+    @Length(min = 3, max = 50, message = "O nome não pode ter mais de {max} caracteres")
+    @NotBlank(message = "O nome deve ser informado")
+    @NotNull(message = "O nome não pode ser nulo")
     @Column(name = "senha", length = 50, nullable = false)
     private String senha;
 
@@ -90,5 +91,30 @@ public class PessoaFisica extends Pessoa implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-            
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.rg);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PessoaFisica other = (PessoaFisica) obj;
+        if (!Objects.equals(this.rg, other.rg)) {
+            return false;
+        }
+        return true;
+    }    
+        
 }

@@ -39,8 +39,8 @@ public class TestePersistenciaEstado {
         try {
             
             Estado estado = new Estado();
-            estado.setNome("Piaui");
-            estado.setUf("PI");
+            estado.setNome("São Paulo");
+            estado.setUf("SP");
             estado.setPais(em.find(Pais.class, 1));
             
             em.getTransaction().begin();
