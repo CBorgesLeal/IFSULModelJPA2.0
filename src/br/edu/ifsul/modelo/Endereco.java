@@ -1,11 +1,18 @@
 package br.edu.ifsul.modelo;
 
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.ForeignKey;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -18,17 +25,63 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
+    @NotBlank(message = "O apelido deve ser informado")
+    @Length(max = 20, message = "O apelido não deve ter mais de {max} caracteres")
+    @NotNull(message = "O apelido não pode ser nulo")
+    @Column(name = "apelido", length = 20, nullable = false)
     private String nickname;
+    
+    @NotBlank(message = "O endereco deve ser informado")
+    @Length(max = 50, message = "O endereco não deve ter mais de {max} caracteres")
+    @NotNull(message = "O endereco não pode ser nulo")
+    @Column(name = "endereco", length = 50, nullable = false)
     private String endereco;
+    
+    @NotBlank(message = "O numero deve ser informado")
+    @Length(max = 10, message = "O numero não deve ter mais de {max} caracteres")
+    @NotNull(message = "O numero não pode ser nulo")
+    @Column(name = "numero", length = 10, nullable = false)
     private String numero;
+    
+    @Length(max = 50, message = "O complemento não deve ter mais de {max} caracteres")
+    @Column(name = "complemento", length = 50)
     private String complemento;
+    
+    @NotBlank(message = "O CEP deve ser informado")
+    @Length(max = 10, message = "O CEP não deve ter mais de {max} caracteres")
+    @NotNull(message = "O CEP não pode ser nulo")
+    @Column(name = "cep", length = 10, nullable = false)
     private String cep;
+    
+    @NotBlank(message = "O bairro deve ser informado")
+    @Length(max = 30, message = "O bairro não deve ter mais de {max} caracteres")
+    @NotNull(message = "O bairro não pode ser nulo")
+    @Column(name = "bairro", length = 30, nullable = false)
     private String bairro;
+    
+    @Length(max = 50, message = "A referência não deve ter mais de {max} caracteres")
+    @Column(name = "referencia", length = 50)
     private String referencia;
-    private Pessoa pessoa;
-    private TipoEndereco tipoEndereco;
+    
+    @NotNull(message = "A pessoa deve ser informada")
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id", referencedColumnName = "id")
+    @ForeignKey(name = "fk_pessoa_id")
+    private Pessoa pessoa;    
+    
+    @NotNull(message = "O tipo de endereco deve ser informado")
+    @ManyToOne
+    @JoinColumn(name = "tipo_endereco_id", referencedColumnName = "id")
+    @ForeignKey(name = "fk_tipo_endereco_id")
+    private TipoEndereco tipoEndereco;    
+    
+    @NotNull(message = "A cidade deve ser informada")
+    @ManyToOne
+    @JoinColumn(name = "cidade_id", referencedColumnName = "id")
+    @ForeignKey(name = "fk_cidade_id")
     private Cidade cidade;
-
+    
     public Endereco() {
     }
 
@@ -144,5 +197,6 @@ public class Endereco {
         }
         return true;
     }   
+
     
 }

@@ -1,14 +1,19 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -45,8 +50,21 @@ public class Pessoa implements Serializable {
     @NotNull(message = "O email não pode ser nulo")
     @Column(name = "email", length = 50, nullable = false)
     private String email;
+    
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true,
+               fetch = FetchType.LAZY)    
+    private List<Endereco> enderecos = new ArrayList<>();
 
     public Pessoa() {
+    }
+    
+    public void addEndereco(Endereco endereco) {
+        endereco.setPessoa(this);
+        enderecos.add(endereco);
+    }
+    
+    public void deleteEndereco(int index) {
+        enderecos.remove(index);
     }
 
     public Integer getId() {
@@ -104,6 +122,14 @@ public class Pessoa implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
             
 }
