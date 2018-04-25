@@ -1,24 +1,23 @@
 package br.edu.ifsul.testes.junit;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
-import br.edu.ifsul.modelo.PessoaFisica;
-import java.util.Calendar;
+import br.edu.ifsul.modelo.PessoaJuridica;
 import javax.persistence.EntityManager;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author Claudinei
+ * 24/04/2018 19:53
  */
-public class TestePersistenciaPessoaFisica {
+public class TestePersistenciaPessoaJuridica {
     
     EntityManager em;
     
-    public TestePersistenciaPessoaFisica() {
+    public TestePersistenciaPessoaJuridica() {
     }
     
     @Before
@@ -36,18 +35,15 @@ public class TestePersistenciaPessoaFisica {
         boolean exception = false;
         try {
             
-            PessoaFisica pf = new PessoaFisica();
-            pf.setCpf("335.427.408-53");
-            pf.setEmail("cbleal@bol.com.br");
-            pf.setNascimento(Calendar.getInstance());
-            pf.setNome("Raimundo de Souza Leal");
-            pf.setNomeUsuario("rsleal");
-            pf.setRg("9501358");
-            pf.setSenha("jj38kl");
-            pf.setTelefone("(89)99976-4587");
+            PessoaJuridica pj = new PessoaJuridica();
+            pj.setCnpj("04.540.560/0001-90");
+            pj.setEmail("micropoint_inf@hotmail.com");
+            pj.setIe("19.448.010-0");
+            pj.setNome("Micropoint Informatica");
+            pj.setTelefone("(89) 3422-3388");
             
             em.getTransaction().begin();
-            em.persist(pf);
+            em.persist(pj);
             em.getTransaction().commit();
         } catch (Exception e) {
             exception = true;
@@ -56,7 +52,6 @@ public class TestePersistenciaPessoaFisica {
         }
         
         Assert.assertEquals(false, exception);
-        
     }
     
 }

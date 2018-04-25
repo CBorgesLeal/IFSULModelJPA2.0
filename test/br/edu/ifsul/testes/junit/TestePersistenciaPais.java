@@ -1,12 +1,10 @@
-
 package br.edu.ifsul.testes.junit;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
-import br.edu.ifsul.modelo.Estado;
 import br.edu.ifsul.modelo.Pais;
 import javax.persistence.EntityManager;
-import junit.framework.Assert;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,11 +12,11 @@ import org.junit.Test;
  *
  * @author Claudinei
  */
-public class TestePersistenciaEstado {
+public class TestePersistenciaPais {
     
     EntityManager em;
     
-    public TestePersistenciaEstado () {
+    public TestePersistenciaPais() {
     }
     
     @Before
@@ -27,25 +25,31 @@ public class TestePersistenciaEstado {
     }
     
     @After
-    public void tearDown() {        
+    public void tearDown() {
         em.close();
     }
     
     @Test
-    public void teste(){
+    public void teste() {
+        
         boolean exception = false;
+        
         try {
-            Estado e = new Estado();
-            e.setNome("Piaui");
-            e.setUf("PI");
-            e.setPais(em.find(Pais.class, 1));
+            
+            Pais p = new Pais();
+            p.setNome("Brasil");
+            p.setIso("BRA");
+            
             em.getTransaction().begin();
-            em.persist(e);
+            em.persist(p);
             em.getTransaction().commit();
-        } catch (Exception e){
+            
+        } catch (Exception e) {
             exception = true;
             e.printStackTrace();
+            em.getTransaction().rollback();
         }
+        
         Assert.assertEquals(false, exception);
         
     }

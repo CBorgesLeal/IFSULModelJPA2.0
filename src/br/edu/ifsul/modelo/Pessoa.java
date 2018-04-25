@@ -17,6 +17,7 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  *
  * @author Claudinei
+ * 24/04/2018 12:32
  */
 @Entity
 @Table(name = "pessoa")
@@ -33,10 +34,10 @@ public class Pessoa implements Serializable {
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
     
-    @Length(min = 3, max = 14, message = "O telefone não pode ter mais de {max} caracteres")
+    @Length(min = 3, max = 15, message = "O telefone não pode ter mais de {max} caracteres")
     @NotBlank(message = "O telefone deve ser informado")
     @NotNull(message = "O telefone não pode ser nulo")
-    @Column(name = "telefone", length = 14, nullable = false)
+    @Column(name = "telefone", length = 15, nullable = false)
     private String telefone;
     
     @Length(min = 3, max = 50, message = "O email não pode ter mais de {max} caracteres")

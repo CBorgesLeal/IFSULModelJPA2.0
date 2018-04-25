@@ -1,42 +1,44 @@
 package br.edu.ifsul.modelo;
 
-import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.ForeignKey;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
- * @author Claudinei 
- * 19/04/2018 20:28
+ * @author Claudinei
  */
 @Entity
-@Table(name = "pais")
-public class Pais implements Serializable {
+@Table(name = "cidade")
+public class Cidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Length(max = 50, message = "O nome não pode ter mais de {max} caracteres")
+
     @NotBlank(message = "O nome deve ser informado")
+    @Length(max = 50, message = "O nome não deve ter mais de {max} caracteres")
     @NotNull(message = "O nome não pode ser nulo")
-    @Column(name = "nome", nullable = false, length = 50)
+    @Column(name = "nome", length = 50, nullable = false)
     private String nome;
-    @Length(max = 3, message = "O ISO não pode ter mais de {max} caracteres")
-    @NotBlank(message = "O ISO deve ser informado")
-    @NotNull(message = "O ISO não pode ser nulo")
-    @Column(name = "iso", nullable = false, length = 3)
-    private String iso;
+    
+    @NotNull(message = "O estado deve ser informado")
+    @ManyToOne
+    @JoinColumn(name = "estado", referencedColumnName = "id", nullable = false)
+    @ForeignKey(name = "fk_estado")
+    private Estado estado;
 
-    public Pais() {
-
+    public Cidade() {
     }
 
     public Integer getId() {
@@ -55,18 +57,18 @@ public class Pais implements Serializable {
         this.nome = nome;
     }
 
-    public String getIso() {
-        return iso;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setIso(String iso) {
-        this.iso = iso;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -81,7 +83,7 @@ public class Pais implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Pais other = (Pais) obj;
+        final Cidade other = (Cidade) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

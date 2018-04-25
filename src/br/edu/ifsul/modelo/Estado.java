@@ -18,31 +18,26 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  *
  * @author Claudinei
- * 23/04/2018 19:18
  */
 @Entity
 @Table(name = "estado")
 public class Estado implements Serializable {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    @Length(min = 3, max = 50, message = "O nome não pode ter mais de {max} caracteres")
+    @Length(max = 50, message = "O nome não pode ter mais de {max} caracteres")
     @NotBlank(message = "O nome deve ser informado")
-    @NotNull(message = "O nome não pode ser nulo")
+    @NotNull(message = "O nome não pode ser nulo")    
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
-    
-    @Length(min = 2, max = 2, message = "A UF não pode ter mais de {max} caracteres")
+    @Length(max = 2, message = "A UF não pode ter mais de {max} caracteres")
     @NotBlank(message = "A UF deve ser informada")
-    @NotNull(message = "A UF não pode ser nula")
-    @Column(name = "uf", length = 2, nullable = false)
+    @NotNull(message = "A UF não pode ser nula")    
+    @Column(name = "uf", length = 2, nullable = false)    
     private String uf;
-    
-    @NotNull(message = "O país deve ser informado")
+    @NotNull(message = "O Pais deve ser informado")
     @ManyToOne
-    @JoinColumn(name = "id_pais", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "pais", referencedColumnName = "id", nullable = false)
     @ForeignKey(name = "fk_pais")
     private Pais pais;
 
@@ -83,8 +78,8 @@ public class Estado implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 19 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -105,6 +100,4 @@ public class Estado implements Serializable {
         }
         return true;
     }
-      
-    
 }

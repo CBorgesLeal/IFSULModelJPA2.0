@@ -13,36 +13,37 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- *
- * @author Claudinei
+ * MAPEAMENTO DE HERANÇA
+ * @author Claudinei 
+ * 24/04/2018 12:55
  */
 @Entity
 @Table(name = "pessoa_fisica")
 public class PessoaFisica extends Pessoa implements Serializable {
-    
+
     @Length(min = 3, max = 20, message = "O nome não pode ter mais de {max} caracteres")
     @NotBlank(message = "O nome deve ser informado")
     @NotNull(message = "O nome não pode ser nulo")
     @Column(name = "rg", length = 20, nullable = false)
     private String rg;
-    
+
     @Length(min = 3, max = 14, message = "O nome não pode ter mais de {max} caracteres")
     @NotBlank(message = "O nome deve ser informado")
     @NotNull(message = "O nome não pode ser nulo")
     @Column(name = "cpf", length = 14, nullable = false)
     private String cpf;
-    
+
     @NotNull(message = "O nome não pode ser nulo")
     @Column(name = "nascimento", length = 50, nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar nascimento;
-    
+
     @Length(min = 3, max = 50, message = "O nome não pode ter mais de {max} caracteres")
     @NotBlank(message = "O nome deve ser informado")
     @NotNull(message = "O nome não pode ser nulo")
     @Column(name = "nomeusuario", length = 50, nullable = false, unique = true)
     private String nomeUsuario;
-    
+
     @Length(min = 3, max = 50, message = "O nome não pode ter mais de {max} caracteres")
     @NotBlank(message = "O nome deve ser informado")
     @NotNull(message = "O nome não pode ser nulo")
@@ -92,29 +93,4 @@ public class PessoaFisica extends Pessoa implements Serializable {
         this.senha = senha;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.rg);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final PessoaFisica other = (PessoaFisica) obj;
-        if (!Objects.equals(this.rg, other.rg)) {
-            return false;
-        }
-        return true;
-    }    
-        
 }
