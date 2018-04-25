@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- *
+ * CLASSE PAI QUE SERÁ HERDADA POR CLASSES FILHAS
  * @author Claudinei
  * 24/04/2018 12:32
  */
